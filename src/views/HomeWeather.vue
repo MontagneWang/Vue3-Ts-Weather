@@ -52,14 +52,14 @@ onMounted(()=>{
 	<div id="app">
 
 		<nav class="topInfo">
-			<Info :info="weatherInfo[0]"/>
-			<Map/>
+			<WeatherInfo :info="weatherInfo[0]"/>
+			<WeatherMap/>
 		</nav>
 
 		<footer class="future">
-			<Abbr :info="weatherInfo[1]"/>
-			<Abbr :info="weatherInfo[2]"/>
-			<Chart :info="chartInfo"/>
+			<WeatherAbbr :info="weatherInfo[1]"/>
+			<WeatherAbbr :info="weatherInfo[2]"/>
+			<WeatherChart :info="chartInfo"/>
 		</footer>
 	</div>
 </template>

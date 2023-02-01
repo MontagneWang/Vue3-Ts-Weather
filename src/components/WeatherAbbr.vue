@@ -22,7 +22,7 @@
 
 <script>
 export default {
-	name: "Abbr",
+	name: "WeatherAbbr",
 	props: ['info'],
 }
 </script>

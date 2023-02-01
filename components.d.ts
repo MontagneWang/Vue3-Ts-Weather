@@ -7,10 +7,10 @@ export {}
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
-    Abbr: typeof import('./src/components/Abbr.vue')['default']
-    Chart: typeof import('./src/components/Chart.vue')['default']
-    Info: typeof import('./src/components/Info.vue')['default']
-    Map: typeof import('./src/components/Map.vue')['default']
+    Abbr: typeof import('./src/components/WeatherAbbr.vue')['default']
+    Chart: typeof import('./src/components/WeatherChart.vue')['default']
+    Info: typeof import('./src/components/WeatherInfo.vue')['default']
+    Map: typeof import('./src/components/WeatherMap.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
   }

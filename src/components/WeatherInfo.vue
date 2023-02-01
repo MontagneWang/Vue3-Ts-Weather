@@ -37,7 +37,7 @@
 // import {mapState} from "vuex";
 
 export default {
-	name: "Info",
+	name: "WeatherInfo",
 	props: ['info'],
 	data() {
 		return {

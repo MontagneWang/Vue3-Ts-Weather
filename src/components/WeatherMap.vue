@@ -9,7 +9,7 @@ import AMapLoader from '@amap/amap-jsapi-loader';
 // import {mapMutations} from "vuex";
 
 export default {
-  name: "Map",
+  name: "WeatherMap",
   methods: {
 	  // ...mapMutations(['CHANGE']),
     initMap() {
