@@ -1,8 +1,4 @@
 <script setup lang="ts">
-import Info from '../components/Info.vue'
-import Map from '../components/Map.vue'
-import Abbr from '../components/Abbr.vue'
-import Chart from '../components/Chart.vue'
 import axios from "axios";
 
 
@@ -10,7 +6,7 @@ let weatherInfo = []
 let chartInfo = []
 let geoLocation = 101210101
 
-function send() {
+onMounted(()=>{
 	axios.get(`https://devapi.qweather.com/v7/weather/3d?location=${geoLocation}&key=2175cc3e56c3447bb9476001f1513df0`)
 			.then(({data: {daily: Info}}: { data: any }) => {
 				weatherInfo = Info
@@ -21,9 +17,7 @@ function send() {
 				console.log("请求失败，Api 接口请求次数已达今日上限")
 				console.dir(err)
 			})
-}
-
-send()
+})
 
 
 // watch: {
