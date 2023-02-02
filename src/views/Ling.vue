@@ -1,10 +1,9 @@
 <script setup lang="ts">
 import {ref} from 'vue'
-import {useCounterStore} from '../stores'
+import {usePositionStore} from '../stores'
 
 const props = defineProps(['msg'])
-const counter = useCounterStore()
-console.log(props.msg)
+const counter = usePositionStore()
 </script>
 
 <template>

@@ -7,9 +7,6 @@ import axios from 'axios'
 import VueAxios from 'vue-axios'
 
 const pinia = createPinia()
-const app = createApp(App)
-
-app.config.globalProperties.$http = axios
 
 createApp(App)
     .use(pinia)

@@ -1,56 +1,52 @@
 <script setup lang="ts">
 import axios from "axios";
+import {usePositionStore} from '../stores'
+// @ts-ignore
+import Darkmode from 'darkmode-js'
 
+const position = usePositionStore()
+let weatherInfo = ref([])
+let chartInfo = ref([])
 
-let weatherInfo = []
-let chartInfo = []
-let geoLocation = 101210101
-
-onMounted(()=>{
-	axios.get(`https://devapi.qweather.com/v7/weather/3d?location=${geoLocation}&key=2175cc3e56c3447bb9476001f1513df0`)
+function send() {
+	axios.get(`https://api.qweather.com/v7/weather/3d?location=${position.geoLocation}&key=a7cf9cf279f14eb1b5a5b3712323f092`)
 			.then(({data: {daily: Info}}: { data: any }) => {
-				weatherInfo = Info
-				console.log(weatherInfo)
-				chartInfo = [weatherInfo[0].tempMax, weatherInfo[1].tempMax, weatherInfo[2].tempMax, weatherInfo[0].tempMin, weatherInfo[1].tempMin, weatherInfo[2].tempMin]
+				// 直接写 weatherInfo 是没有用的，需要写上 .value
+				weatherInfo.value = Info
+				chartInfo.value = [weatherInfo.value[0]['tempMax'],
+					weatherInfo.value[1]['tempMax'],
+					weatherInfo.value[2]['tempMax'],
+					weatherInfo.value[0]['tempMin'],
+					weatherInfo.value[1]['tempMin'],
+					weatherInfo.value[2]['tempMin']]
 			})
-			.catch((err: any) => {
+			.catch((err: Object) => {
 				console.log("请求失败，Api 接口请求次数已达今日上限")
 				console.dir(err)
 			})
+}
+
+watchEffect(() => {
+	// position.geoLocation 发生变化，重新发送请求
+	send()
 })
 
-
-// watch: {
-// 	geoLocation: {
-// 		handler()
-// 		{
-// 			this.send()
-// 		}
-// 	}
-// }
-// mounted()
-// {
-// 	console.log("地图接口使用 [高德] ，天气接口使用 [和风天气] 。\n" +
-// 			"您可以点击 [🔄更新天气] 按钮获取最新数据，也可以点击右下角的 [🌓] 按钮进行模式切换。")
-//
-// 	function addDarkmodeWidget() {
-// 		const darkmode = new Darkmode({
-// 			label: '🌓', // default: ''
-// 		});
-// 		darkmode.showWidget();
-// 		new Darkmode().showWidget();
-// 	}
-//
-// 	window.addEventListener('load', addDarkmodeWidget);
-//
-// 	this.send()
-// }
-
+onMounted(() => {
+	console.log("地图接口使用 [高德] ，天气接口使用 [和风天气] 。\n" + "您可以点击 [🔄更新天气] 按钮获取最新数据，也可以点击右下角的 [🌓] 按钮进行模式切换。")
+	send()
+	function addDarkmodeWidget() {
+		const darkmode = new Darkmode({
+			label: '🌓', // default: ''
+		});
+		darkmode.showWidget();
+		new Darkmode().showWidget();
+	}
+	window.addEventListener('load', addDarkmodeWidget);
+})
 </script>
 
 <template>
 	<div id="app">
-
 		<nav class="topInfo">
 			<WeatherInfo :info="weatherInfo[0]"/>
 			<WeatherMap/>

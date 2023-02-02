@@ -1,6 +1,5 @@
 <script setup lang="ts">
 
-
 </script>
 
 <template>
@@ -9,18 +8,28 @@
 		<span>|</span>
 		<router-link to="/about">&nbsp;&nbsp;绫曲推送</router-link>
 	</nav>
-	<router-view/>
+	<router-view v-slot="{ Component }">
+		<keep-alive>
+			<Component :is="Component" />
+		</keep-alive>
+	</router-view>
+<!--	这样无法缓存页面 -->
+<!--	<keep-alive>-->
+<!--		<router-view/>-->
+<!--	</keep-alive>-->
 </template>
 
 <style scoped lang="scss">
 nav {
-	position: fixed;
+	display: block;
+	position: absolute;
 	top: 0;
 	left: 0;
-	width: 100%;
+	width: 100vw;
 	height: 50px;
 	font-size: 20px;
 	line-height: 50px;
+	text-align: center;
 	margin: 0 auto;
 }
 </style>

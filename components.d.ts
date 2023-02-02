@@ -13,5 +13,9 @@ declare module '@vue/runtime-core' {
     Map: typeof import('./src/components/WeatherMap.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    WeatherAbbr: typeof import('./src/components/WeatherAbbr.vue')['default']
+    WeatherChart: typeof import('./src/components/WeatherChart.vue')['default']
+    WeatherInfo: typeof import('./src/components/WeatherInfo.vue')['default']
+    WeatherMap: typeof import('./src/components/WeatherMap.vue')['default']
   }
 }

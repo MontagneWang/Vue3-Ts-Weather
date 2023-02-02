@@ -1,5 +1,9 @@
+<script setup lang="ts">
+defineProps(['info'])
+</script>
+
 <template>
-<!--	因为数据是异步加载的，加上 v-if="info" 可以防止在 props 还没有数据时读取到 undefined -->
+	<!--	因为数据是异步加载的，加上 v-if="info" 可以防止在 props 还没有数据时读取到 undefined -->
 	<div id="tomorrow" class="border" v-if="info">
     <span class="fxDate"
           v-text="`${info.fxDate}`"
@@ -10,7 +14,7 @@
 		>
 		</span>
 		<span class="tempMax"
-		      v-text="`🔼\xa0\xa0${info.tempMax} ℃\xa0\xa0\xa0🔽\xa0\xa0${info.tempMin} ℃`"
+		      v-text="`🔼\xa0${info.tempMax} ℃\xa0\xa0🔽\xa0${info.tempMin} ℃`"
 		>
 		</span>
 		<span class="tempMin"
@@ -19,13 +23,6 @@
 		</span>
 	</div>
 </template>
-
-<script>
-export default {
-	name: "WeatherAbbr",
-	props: ['info'],
-}
-</script>
 
 <style lang="scss" scoped>
 div {
