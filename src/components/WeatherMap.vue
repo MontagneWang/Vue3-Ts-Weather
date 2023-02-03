@@ -50,7 +50,7 @@ onMounted(() => {
 </script>
 
 <template>
-	<aside class="map border">
+	<aside class="map border" >
 		<div id='container'></div>
 	</aside>
 </template>

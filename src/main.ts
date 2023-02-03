@@ -6,6 +6,10 @@ import router from './router'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 import VueI18n from './language'
+import 'element-plus/theme-chalk/src/index.scss'
+
+// @ts-ignore
+import Skeleton from '@x-ui-vue3/skeleton'
 
 const pinia = createPinia()
 
@@ -14,4 +18,5 @@ createApp(App)
     .use(router)
     .use(VueI18n)
     .use(VueAxios, axios)
+    .use(Skeleton)
     .mount('#app')

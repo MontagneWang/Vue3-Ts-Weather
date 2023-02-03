@@ -23,6 +23,8 @@ let data = reactive({
 	name: '',
 	closeText: '',
 	feelText: '',
+	tempMax:'',
+	tempMin:'',
 })
 
 function getNowTime(nowTime: any): any {
@@ -34,12 +36,12 @@ function getNowTime(nowTime: any): any {
 
 function send() {
 	Promise.all([
-		// axios.get(`https://api.qweather.com/v7/weather/now?location=${position.geoLocation}&key=a7cf9cf279f14eb1b5a5b3712323f092`),
-		// axios.get(`https://geoapi.qweather.com/v2/city/lookup?location=${position.geoLocation}&key=a7cf9cf279f14eb1b5a5b3712323f092`),
-		// axios.get(`https://api.qweather.com/v7/indices/1d?type=3,8&location=${position.geoLocation}&key=a7cf9cf279f14eb1b5a5b3712323f092`)])
-		axios.get(`https://devapi.qweather.com/v7/weather/now?location=${position.geoLocation}&key=2175cc3e56c3447bb9476001f1513df0`),
-		axios.get(`https://geoapi.qweather.com/v2/city/lookup?location=${position.geoLocation}&key=2175cc3e56c3447bb9476001f1513df0`),
-		axios.get(`https://devapi.qweather.com/v7/indices/1d?type=3,8&location=${position.geoLocation}&key=2175cc3e56c3447bb9476001f1513df0`)])
+		axios.get(`https://api.qweather.com/v7/weather/now?location=${position.geoLocation}&key=a7cf9cf279f14eb1b5a5b3712323f092`),
+		axios.get(`https://geoapi.qweather.com/v2/city/lookup?location=${position.geoLocation}&key=a7cf9cf279f14eb1b5a5b3712323f092`),
+		axios.get(`https://api.qweather.com/v7/indices/1d?type=3,8&location=${position.geoLocation}&key=a7cf9cf279f14eb1b5a5b3712323f092`)])
+		// axios.get(`https://devapi.qweather.com/v7/weather/now?location=${position.geoLocation}&key=2175cc3e56c3447bb9476001f1513df0`),
+		// axios.get(`https://geoapi.qweather.com/v2/city/lookup?location=${position.geoLocation}&key=2175cc3e56c3447bb9476001f1513df0`),
+		// axios.get(`https://devapi.qweather.com/v7/indices/1d?type=3,8&location=${position.geoLocation}&key=2175cc3e56c3447bb9476001f1513df0`)])
 			.then((response) => {
 
 				let {data: resWeather} = response[0]
@@ -86,8 +88,8 @@ onBeforeUnmount(() => {
 
 <template>
 	<!--	因为数据是异步加载的，加上 v-if="info" 可以防止在 props 还没有数据时读取到 undefined -->
-	<section class="mainInfo border" v-if="info">
-		<div class="top">
+	<section class="mainInfo border">
+		<div class="top" v-skeleton-item>
 			<div id="location" class="border" v-text="`📍\xa0\xa0${data.adm1} ${data.adm2} ${data.name}`"></div>
 			<span onclick="location.reload();" style="margin-bottom:10px">
 				<el-button type="primary" plain>
@@ -97,7 +99,7 @@ onBeforeUnmount(() => {
 			<div id="currentTime" class="border">{{ nowTime }}</div>
 		</div>
 
-		<div id="weatherIcon" class="border">
+		<div id="weatherIcon" class="border" v-skeleton-item>
 			<span id="statusNow"
 			      :title="data.closeText"
 			      v-html="`<i class=qi-${data.icon}></i>\n ${data.text} ${data.temp} ℃`">
@@ -108,7 +110,7 @@ onBeforeUnmount(() => {
 			</span>
 		</div>
 
-		<div class="otherInfo border">
+		<div class="otherInfo border" v-skeleton-item v-if="info">
       <span>
           <p id="maxTemp">{{ `🔼\xa0\xa0${info.tempMax} ℃` }}</p>
           <p id="minTemp">{{ `🔽\xa0\xa0${info.tempMin} ℃` }}</p>

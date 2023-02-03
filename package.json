@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@amap/amap-jsapi-loader": "^1.0.1",
+    "@x-ui-vue3/skeleton": "^1.0.2",
     "axios": "^1.3.0",
     "darkmode-js": "^1.5.7",
     "echarts": "^5.4.1",

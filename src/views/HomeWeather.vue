@@ -3,17 +3,20 @@ import axios from "axios";
 import {usePositionStore} from '../stores'
 // @ts-ignore
 import Darkmode from 'darkmode-js'
+import { ElMessage } from 'element-plus'
 
 const position = usePositionStore()
 let weatherInfo = ref([])
 let chartInfo = ref([])
+let dataFlag = ref(true)
 
 function send() {
-	// axios.get(`https://api.qweather.com/v7/weather/3d?location=${position.geoLocation}&key=a7cf9cf279f14eb1b5a5b3712323f092`)
-	axios.get(`https://devapi.qweather.com/v7/weather/3d?location=${position.geoLocation}&key=2175cc3e56c3447bb9476001f1513df0`)
+	axios.get(`https://api.qweather.com/v7/weather/3d?location=${position.geoLocation}&key=a7cf9cf279f14eb1b5a5b3712323f092`)
+	// axios.get(`https://devapi.qweather.com/v7/weather/3d?location=${position.geoLocation}&key=2175cc3e56c3447bb9476001f1513df0`)
 			.then(({data: {daily: Info}}: { data: any }) => {
 				// 直接写 weatherInfo 是没有用的，需要写上 .value
 				weatherInfo.value = Info
+				dataFlag = ref(false)
 				chartInfo.value = [weatherInfo.value[0]['tempMax'],
 					weatherInfo.value[1]['tempMax'],
 					weatherInfo.value[2]['tempMax'],
@@ -22,6 +25,7 @@ function send() {
 					weatherInfo.value[2]['tempMin']]
 			})
 			.catch((err: Object) => {
+				ElMessage.error('数据请求失败，接口请求次数已达今日上限')
 				console.log("请求失败，Api 接口请求次数已达今日上限")
 				console.dir(err)
 			})
@@ -47,16 +51,17 @@ onMounted(() => {
 </script>
 
 <template>
-	<div id="app">
+
+ 	<div id="app" v-skeleton="dataFlag">
 		<nav class="topInfo">
 			<WeatherInfo :info="weatherInfo[0]"/>
-			<WeatherMap/>
+			<WeatherMap v-skeleton-item />
 		</nav>
 
 		<footer class="future">
-			<WeatherAbbr :info="weatherInfo[1]"/>
-			<WeatherAbbr :info="weatherInfo[2]"/>
-			<WeatherChart :info="chartInfo"/>
+			<WeatherAbbr v-skeleton-item :info="weatherInfo[1]"/>
+			<WeatherAbbr v-skeleton-item :info="weatherInfo[2]"/>
+			<WeatherChart v-skeleton-item :info="chartInfo"/>
 		</footer>
 	</div>
 </template>
