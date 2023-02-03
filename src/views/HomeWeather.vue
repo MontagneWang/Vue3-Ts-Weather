@@ -9,7 +9,8 @@ let weatherInfo = ref([])
 let chartInfo = ref([])
 
 function send() {
-	axios.get(`https://api.qweather.com/v7/weather/3d?location=${position.geoLocation}&key=a7cf9cf279f14eb1b5a5b3712323f092`)
+	// axios.get(`https://api.qweather.com/v7/weather/3d?location=${position.geoLocation}&key=a7cf9cf279f14eb1b5a5b3712323f092`)
+	axios.get(`https://devapi.qweather.com/v7/weather/3d?location=${position.geoLocation}&key=2175cc3e56c3447bb9476001f1513df0`)
 			.then(({data: {daily: Info}}: { data: any }) => {
 				// 直接写 weatherInfo 是没有用的，需要写上 .value
 				weatherInfo.value = Info
