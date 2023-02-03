@@ -1,5 +1,8 @@
 <script setup lang="ts">
 defineProps(['info'])
+import { useI18n } from "vue-i18n";
+
+const { t } = useI18n();
 </script>
 
 <template>
@@ -17,9 +20,8 @@ defineProps(['info'])
 		      v-text="`🔼\xa0${info.tempMax} ℃\xa0\xa0🔽\xa0${info.tempMin} ℃`"
 		>
 		</span>
-		<span class="tempMin"
-		      v-text="`${info.windDirDay}\xa0\xa0\xa0${info.windScaleDay} 级`"
-		>
+		<span class="tempMin">
+		{{info.windDirDay}}&nbsp;&nbsp;{{info.windScaleDay}}&nbsp;&nbsp;{{t('scale')}}
 		</span>
 	</div>
 </template>

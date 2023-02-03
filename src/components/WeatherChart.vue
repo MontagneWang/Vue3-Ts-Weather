@@ -1,6 +1,9 @@
 <script setup lang="ts">
 const props = defineProps(['info'])
 import * as echarts from "echarts"
+import { useI18n } from "vue-i18n";
+
+const { t } = useI18n();
 
 function callEcharts(max1: string,
                      max2: string,
@@ -19,20 +22,20 @@ function callEcharts(max1: string,
 			borderWidth: 1
 		},
 		title: {
-			text: ' 气温走向',
+			text: t('Temp direction'),
 		},
 		xAxis: {
-			data: ['今天', '明天', '后天',],
+			data: [t('Today'),t('Tomorrow'),t('Day after tomorrow')],
 		},
 		yAxis: {
 			scale: true,
 		},
 		legend: {
-			data: ['最高温度', '最低温度']
+			data: [t('MaxTemp'), t('MinTemp')]
 		},
 		series: [
 			{
-				name: '最高温度',
+				name: t('MaxTemp'),
 				type: 'line',
 				data: [max1, max2, max3],
 				label: {
@@ -44,7 +47,7 @@ function callEcharts(max1: string,
 				},
 			},
 			{
-				name: '最低温度',
+				name: t('MinTemp'),
 				type: 'line',
 				data: [min1, min2, min3],
 				label: {

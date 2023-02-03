@@ -2,6 +2,9 @@
 import axios from "axios";
 import {onMounted, reactive} from "vue";
 import {usePositionStore} from '../stores'
+import { useI18n } from "vue-i18n";
+
+const { t } = useI18n();
 
 defineProps(['info'])
 const position = usePositionStore()
@@ -86,7 +89,11 @@ onBeforeUnmount(() => {
 	<section class="mainInfo border" v-if="info">
 		<div class="top">
 			<div id="location" class="border" v-text="`📍\xa0\xa0${data.adm1} ${data.adm2} ${data.name}`"></div>
-			<span onclick="location.reload();" class="border">🔄更新数据</span>
+			<span onclick="location.reload();" style="margin-bottom:10px">
+				<el-button type="primary" plain>
+					{{t('refresh')}}
+				</el-button>
+			</span>
 			<div id="currentTime" class="border">{{ nowTime }}</div>
 		</div>
 
@@ -97,8 +104,7 @@ onBeforeUnmount(() => {
 			</span>
 			<span id="feelLike"
 			      style="font-size: 14px; width: 100%;"
-			      :title="data.feelText"
-			      v-text="`体感温度 ${data.feelsLike} ℃`">
+			      :title="data.feelText">{{t('feelLike')}} {{data.feelsLike}} ℃
 			</span>
 		</div>
 
@@ -108,10 +114,10 @@ onBeforeUnmount(() => {
           <p id="minTemp">{{ `🔽\xa0\xa0${info.tempMin} ℃` }}</p>
       </span><span>
           <p id="now.windDir">{{ info.windDirDay }}</p>
-          <p id="now.windScale">{{ `${info.windScaleDay}\xa0\xa0级` }}</p>
+          <p id="now.windScale">{{ `${info.windScaleDay}\xa0\xa0` }}{{t('scale')}}</p>
       </span>
-			<span id="now.vis">能见度<br>{{ `\n ${info.vis} km` }}</span>
-			<span id="now.humidity">相对湿度<br>{{ `\n ${info.humidity} %` }}</span>
+			<span id="now.vis">{{t('visibility')}}<br>{{ `\n ${info.vis} km` }}</span>
+			<span id="now.humidity">{{t('humidity')}}<br>{{ `\n ${info.humidity} %` }}</span>
 		</div>
 	</section>
 </template>

@@ -1,18 +1,59 @@
 <script setup lang="ts">
+import { ArrowDown } from '@element-plus/icons-vue'
+import { useI18n } from "vue-i18n";
+
+const { t } = useI18n();
 
 </script>
 
 <template>
-	<nav>
-		<router-link to="/">天气站点&nbsp;&nbsp;</router-link>
-		<span>|</span>
-		<router-link to="/about">&nbsp;&nbsp;绫曲推送</router-link>
-	</nav>
+	<div id="SiteChoose" class="flex flex-wrap items-center">
+    <el-dropdown>
+      <el-button type="primary">
+        {{t('SiteChoose')}} | <el-icon class="el-icon--right"><arrow-down /></el-icon>
+      </el-button>
+      <template #dropdown>
+        <el-dropdown-menu>
+          <el-dropdown-item>
+            <el-link type="primary">
+              <router-link to="/">{{t('WeatherSite')}}</router-link>
+						</el-link>
+					</el-dropdown-item>
+					<el-dropdown-item>
+						<el-link type="primary">
+	            <router-link to="/ling">{{t('LingSongs')}}</router-link>
+						</el-link>
+					</el-dropdown-item>
+					<el-dropdown-item>
+            <el-link type="primary" href="https://download.xn--fjqs22eumn.cn/" target="_blank">{{t('DownloadSite')}}</el-link>
+					</el-dropdown-item>
+					<el-dropdown-item>
+            <el-link type="primary" href="https://xn--fjqs22eumn.cn/" target="_blank">{{t('PrimarySite')}}</el-link>
+					</el-dropdown-item>
+        </el-dropdown-menu>
+      </template>
+    </el-dropdown>
+  </div>
+
+  <el-select v-model="$i18n.locale"
+					  class="m-2"
+					  placeholder="选择语言"
+					  size="small">
+    <el-option
+      v-for="locale in $i18n.availableLocales"
+	    :key="`locale-${locale}`"
+	    :value="locale"
+    >
+      {{ locale }}
+	  </el-option>
+  </el-select>
+
 	<router-view v-slot="{ Component }">
 		<keep-alive>
 			<Component :is="Component" />
 		</keep-alive>
 	</router-view>
+
 <!--	这样无法缓存页面 -->
 <!--	<keep-alive>-->
 <!--		<router-view/>-->
@@ -20,16 +61,30 @@
 </template>
 
 <style scoped lang="scss">
-nav {
-	display: block;
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100vw;
-	height: 50px;
-	font-size: 20px;
-	line-height: 50px;
-	text-align: center;
-	margin: 0 auto;
+a{
+	text-decoration: none;
+	color: rgb(64, 158, 255);
+}
+#SiteChoose{
+	position: fixed;
+	left: 40px;
+	top: 35px;
+}
+div.el-select.el-select--small.m-2{
+	position: fixed;
+	left: 40px;
+	top: 235px;
+	width: 115px !important;
+	height: 32px;
+}
+
+.example-showcase .el-dropdown + .el-dropdown {
+	margin-left: 15px;
+}
+.example-showcase .el-dropdown-link {
+	cursor: pointer;
+	color: var(--el-color-primary);
+	display: flex;
+	align-items: center;
 }
 </style>

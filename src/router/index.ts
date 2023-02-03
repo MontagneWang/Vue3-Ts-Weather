@@ -9,8 +9,8 @@ const routes = [
         component: Weather
     },
     {
-        path: '/about',
-        name: 'about',
+        path: '/ling',
+        name: 'ling',
         component: Ling
         // 动态加载
         // component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
