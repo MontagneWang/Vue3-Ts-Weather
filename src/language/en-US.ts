@@ -17,4 +17,6 @@ export default  {
     'LingSongs':'Ling Songs',
     'DownloadSite':'Download Site',
     'PrimarySite':'Primary site',
+    'Ling1':'I originally wanted to do YueZhengLing original songs Publish',
+    'Ling2':'But then I thought I could go directly to bilibili to search for keywords, so the idea was put on hold',
 }

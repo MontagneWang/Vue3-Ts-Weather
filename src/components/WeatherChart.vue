@@ -1,8 +1,8 @@
 <script setup lang="ts">
-const props = defineProps(['info'])
 import * as echarts from "echarts"
 import { useI18n } from "vue-i18n";
 
+const props = defineProps(['info'])
 const { t } = useI18n();
 
 function callEcharts(max1: string,

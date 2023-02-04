@@ -15,14 +15,10 @@ const { t } = useI18n();
       <template #dropdown>
         <el-dropdown-menu>
           <el-dropdown-item>
-            <el-link type="primary">
-              <router-link to="/">{{t('WeatherSite')}}</router-link>
-						</el-link>
+            <router-link to="/">{{t('WeatherSite')}}</router-link>
 					</el-dropdown-item>
 					<el-dropdown-item>
-						<el-link type="primary">
-	            <router-link to="/ling">{{t('LingSongs')}}</router-link>
-						</el-link>
+            <router-link to="/ling">{{t('LingSongs')}}</router-link>
 					</el-dropdown-item>
 					<el-dropdown-item>
             <el-link type="primary" href="https://download.xn--fjqs22eumn.cn/" target="_blank">{{t('DownloadSite')}}</el-link>

@@ -36,12 +36,12 @@ function getNowTime(nowTime: any): any {
 
 function send() {
 	Promise.all([
-		axios.get(`https://api.qweather.com/v7/weather/now?location=${position.geoLocation}&key=a7cf9cf279f14eb1b5a5b3712323f092`),
-		axios.get(`https://geoapi.qweather.com/v2/city/lookup?location=${position.geoLocation}&key=a7cf9cf279f14eb1b5a5b3712323f092`),
-		axios.get(`https://api.qweather.com/v7/indices/1d?type=3,8&location=${position.geoLocation}&key=a7cf9cf279f14eb1b5a5b3712323f092`)])
-		// axios.get(`https://devapi.qweather.com/v7/weather/now?location=${position.geoLocation}&key=2175cc3e56c3447bb9476001f1513df0`),
-		// axios.get(`https://geoapi.qweather.com/v2/city/lookup?location=${position.geoLocation}&key=2175cc3e56c3447bb9476001f1513df0`),
-		// axios.get(`https://devapi.qweather.com/v7/indices/1d?type=3,8&location=${position.geoLocation}&key=2175cc3e56c3447bb9476001f1513df0`)])
+		// axios.get(`https://api.qweather.com/v7/weather/now?location=${position.geoLocation}&key=a7cf9cf279f14eb1b5a5b3712323f092`),
+		// axios.get(`https://geoapi.qweather.com/v2/city/lookup?location=${position.geoLocation}&key=a7cf9cf279f14eb1b5a5b3712323f092`),
+		// axios.get(`https://api.qweather.com/v7/indices/1d?type=3,8&location=${position.geoLocation}&key=a7cf9cf279f14eb1b5a5b3712323f092`)])
+		axios.get(`https://devapi.qweather.com/v7/weather/now?location=${position.geoLocation}&key=2175cc3e56c3447bb9476001f1513df0`),
+		axios.get(`https://geoapi.qweather.com/v2/city/lookup?location=${position.geoLocation}&key=2175cc3e56c3447bb9476001f1513df0`),
+		axios.get(`https://devapi.qweather.com/v7/indices/1d?type=3,8&location=${position.geoLocation}&key=2175cc3e56c3447bb9476001f1513df0`)])
 			.then((response) => {
 
 				let {data: resWeather} = response[0]

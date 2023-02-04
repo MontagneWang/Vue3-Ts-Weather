@@ -15,6 +15,8 @@ export default  {
     'Day after tomorrow':'后天',
     'WeatherSite':'天气站点',
     'LingSongs':'绫曲推送',
-    'DownloadSite':'返回下载站',
-    'PrimarySite':'返回主站点',
+    'DownloadSite':'下载站',
+    'PrimarySite':'主站点',
+    'Ling1':'这里本来是想做乐正绫原创曲推送的',
+    'Ling2':'但后来想到可以直接去 B 站搜索关键词，所以这个想法就搁置了',
 }

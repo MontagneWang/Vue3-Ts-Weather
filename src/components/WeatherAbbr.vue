@@ -1,6 +1,6 @@
 <script setup lang="ts">
-defineProps(['info'])
 import { useI18n } from "vue-i18n";
+defineProps(['info'])
 
 const { t } = useI18n();
 </script>
