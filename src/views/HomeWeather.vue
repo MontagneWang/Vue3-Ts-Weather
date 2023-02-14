@@ -10,26 +10,47 @@ let weatherInfo = ref([])
 let chartInfo = ref([])
 let dataFlag = ref(true)
 
-function send() {
-	// axios.get(`https://api.qweather.com/v7/weather/3d?location=${position.geoLocation}&key=a7cf9cf279f14eb1b5a5b3712323f092`)
-	axios.get(`https://devapi.qweather.com/v7/weather/3d?location=${position.geoLocation}&key=2175cc3e56c3447bb9476001f1513df0`)
-			.then(({data: {daily: Info}}: { data: any }) => {
-				// 直接写 weatherInfo 是没有用的，需要写上 .value
-				weatherInfo.value = Info
-				dataFlag = ref(false)
-				chartInfo.value = [weatherInfo.value[0]['tempMax'],
-					weatherInfo.value[1]['tempMax'],
-					weatherInfo.value[2]['tempMax'],
-					weatherInfo.value[0]['tempMin'],
-					weatherInfo.value[1]['tempMin'],
-					weatherInfo.value[2]['tempMin']]
-			})
-			.catch((err: Object) => {
-				ElMessage.error('数据请求失败，接口请求次数已达今日上限')
-				console.log("请求失败，Api 接口请求次数已达今日上限")
-				console.dir(err)
-			})
+async function send() {
+	try {
+		const { data: { daily: info } } = await axios.get(
+				`https://devapi.qweather.com/v7/weather/3d?location=${position.geoLocation}&key=2175cc3e56c3447bb9476001f1513df0`
+		);
+		weatherInfo.value = info;
+		dataFlag.value = false;
+		chartInfo.value = [
+			weatherInfo.value[0].tempMax,
+			weatherInfo.value[1].tempMax,
+			weatherInfo.value[2].tempMax,
+			weatherInfo.value[0].tempMin,
+			weatherInfo.value[1].tempMin,
+			weatherInfo.value[2].tempMin
+		];
+	} catch (err) {
+		console.error("请求失败，Api 接口请求次数已达今日上限");
+		console.error(err);
+		ElMessage.error("数据请求失败，接口请求次数已达今日上限");
+	}
 }
+// function send() {
+// 	// axios.get(`https://api.qweather.com/v7/weather/3d?location=${position.geoLocation}&key=a7cf9cf279f14eb1b5a5b3712323f092`)
+// 	axios.get(`https://devapi.qweather.com/v7/weather/3d?location=${position.geoLocation}&key=2175cc3e56c3447bb9476001f1513df0`)
+// 			.then(({data: {daily: Info}}: { data: any }) => {
+// 				// 直接写 weatherInfo 是没有用的，需要写上 .value
+// 				weatherInfo.value = Info
+// 				dataFlag = ref(false)
+// 				chartInfo.value = [weatherInfo.value[0]['tempMax'],
+// 					weatherInfo.value[1]['tempMax'],
+// 					weatherInfo.value[2]['tempMax'],
+// 					weatherInfo.value[0]['tempMin'],
+// 					weatherInfo.value[1]['tempMin'],
+// 					weatherInfo.value[2]['tempMin']]
+// 			})
+// 			.catch((err: Object) => {
+// 				ElMessage.error('数据请求失败，接口请求次数已达今日上限')
+// 				console.log("请求失败，Api 接口请求次数已达今日上限")
+// 				console.dir(err)
+// 			})
+// }
 
 watchEffect(() => {
 	// position.geoLocation 发生变化，重新发送请求

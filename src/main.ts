@@ -7,7 +7,7 @@ import axios from 'axios'
 import VueAxios from 'vue-axios'
 import VueI18n from './language'
 import 'element-plus/theme-chalk/src/index.scss'
-
+import 'normalize.css/normalize.css'
 // @ts-ignore
 import Skeleton from '@x-ui-vue3/skeleton'
 

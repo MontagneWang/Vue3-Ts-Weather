@@ -7,11 +7,11 @@ export const usePositionStore = defineStore('Position', {
         geoLocation:'101210111',
     }),
     getters: {
-        double: (state) => state.count * 2,
+        // double: (state) => state.count * 2,
     },
     actions: {
-        increment() {
-            this.count++
-        },
+        // increment() {
+        //     this.count++
+        // },
     },
 })

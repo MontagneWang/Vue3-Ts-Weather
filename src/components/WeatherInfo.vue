@@ -13,6 +13,14 @@ const state = reactive({
 	nowTime: new Date().toLocaleString(),
 })
 const {nowTime} = toRefs(state)
+
+function getNowTime(nowTime: any): any {
+	timer = setInterval(() => {
+		let date = new Date();
+		nowTime.value = date.toLocaleString();
+	}, 1000)
+}
+
 let data = reactive({
 	icon: '',
 	text: '',
@@ -26,47 +34,68 @@ let data = reactive({
 	tempMax:'',
 	tempMin:'',
 })
+// function send() {
+// 	Promise.all([
+// 		// axios.get(`https://api.qweather.com/v7/weather/now?location=${position.geoLocation}&key=a7cf9cf279f14eb1b5a5b3712323f092`),
+// 		// axios.get(`https://geoapi.qweather.com/v2/city/lookup?location=${position.geoLocation}&key=a7cf9cf279f14eb1b5a5b3712323f092`),
+// 		// axios.get(`https://api.qweather.com/v7/indices/1d?type=3,8&location=${position.geoLocation}&key=a7cf9cf279f14eb1b5a5b3712323f092`)])
+// 		axios.get(`https://devapi.qweather.com/v7/weather/now?location=${position.geoLocation}&key=2175cc3e56c3447bb9476001f1513df0`),
+// 		axios.get(`https://geoapi.qweather.com/v2/city/lookup?location=${position.geoLocation}&key=2175cc3e56c3447bb9476001f1513df0`),
+// 		axios.get(`https://devapi.qweather.com/v7/indices/1d?type=3,8&location=${position.geoLocation}&key=2175cc3e56c3447bb9476001f1513df0`)])
+// 			.then((response) => {
+//
+// 				let {data: resWeather} = response[0]
+// 				let {now: {icon, text, temp, feelsLike}} = resWeather
+//
+// 				let {data: {location: resGeo}} = response[1]
+// 				let [{adm1, adm2, name}] = resGeo
+//
+// 				let {data: {daily: resFeel}} = response[2]
+// 				let [{text: closeText}, {text: feelText}] = resFeel
+//
+// 				data.icon = icon
+// 				data.text = text
+// 				data.temp = temp
+// 				data.feelsLike = feelsLike
+// 				data.adm1 = adm1
+// 				data.adm2 = adm2
+// 				data.name = name
+// 				data.closeText = closeText
+// 				data.feelText = feelText
+// 			})
+// 			.catch((err) => {
+// 				console.log("请求失败，Api 接口请求次数已达今日上限")
+// 				console.dir(err)
+// 			})
+// }
 
-function getNowTime(nowTime: any): any {
-	timer = setInterval(() => {
-		let date = new Date();
-		nowTime.value = date.toLocaleString();
-	}, 1000)
-}
+async function send() {
+	try {
+		const [resWeather, resGeo, resFeel] = await Promise.all([
+			axios.get(`https://devapi.qweather.com/v7/weather/now?location=${position.geoLocation}&key=2175cc3e56c3447bb9476001f1513df0`),
+			axios.get(`https://geoapi.qweather.com/v2/city/lookup?location=${position.geoLocation}&key=2175cc3e56c3447bb9476001f1513df0`),
+			axios.get(`https://devapi.qweather.com/v7/indices/1d?type=3,8&location=${position.geoLocation}&key=2175cc3e56c3447bb9476001f1513df0`)
+		]);
 
-function send() {
-	Promise.all([
-		// axios.get(`https://api.qweather.com/v7/weather/now?location=${position.geoLocation}&key=a7cf9cf279f14eb1b5a5b3712323f092`),
-		// axios.get(`https://geoapi.qweather.com/v2/city/lookup?location=${position.geoLocation}&key=a7cf9cf279f14eb1b5a5b3712323f092`),
-		// axios.get(`https://api.qweather.com/v7/indices/1d?type=3,8&location=${position.geoLocation}&key=a7cf9cf279f14eb1b5a5b3712323f092`)])
-		axios.get(`https://devapi.qweather.com/v7/weather/now?location=${position.geoLocation}&key=2175cc3e56c3447bb9476001f1513df0`),
-		axios.get(`https://geoapi.qweather.com/v2/city/lookup?location=${position.geoLocation}&key=2175cc3e56c3447bb9476001f1513df0`),
-		axios.get(`https://devapi.qweather.com/v7/indices/1d?type=3,8&location=${position.geoLocation}&key=2175cc3e56c3447bb9476001f1513df0`)])
-			.then((response) => {
+		const { now: { icon, text, temp, feelsLike } } = resWeather.data;
+		const [{ adm1, adm2, name }] = resGeo.data.location;
+		const [{ text: closeText }, { text: feelText }] = resFeel.data.daily;
 
-				let {data: resWeather} = response[0]
-				let {now: {icon, text, temp, feelsLike}} = resWeather
-
-				let {data: {location: resGeo}} = response[1]
-				let [{adm1, adm2, name}] = resGeo
-
-				let {data: {daily: resFeel}} = response[2]
-				let [{text: closeText}, {text: feelText}] = resFeel
-
-				data.icon = icon
-				data.text = text
-				data.temp = temp
-				data.feelsLike = feelsLike
-				data.adm1 = adm1
-				data.adm2 = adm2
-				data.name = name
-				data.closeText = closeText
-				data.feelText = feelText
-			})
-			.catch((err) => {
-				console.log("请求失败，Api 接口请求次数已达今日上限")
-				console.dir(err)
-			})
+		Object.assign(data, {
+			icon,
+			text,
+			temp,
+			feelsLike,
+			adm1,
+			adm2,
+			name,
+			closeText,
+			feelText,
+		});
+	} catch (err) {
+		console.error("Request failed, API daily limit reached.");
+		console.error(err);
+	}
 }
 
 watchEffect(() => {

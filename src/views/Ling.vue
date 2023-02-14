@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 import {onMounted, ref} from 'vue'
 import {usePositionStore} from '../stores'
 import axios from "axios";
@@ -9,6 +9,7 @@ const { t } = useI18n();
 
 const props = defineProps(['msg'])
 const counter = usePositionStore()
+let videoData = ref([])
 
 function send() {
 	axios.get('bili/wbi/search/type?__refresh__=true&_extra=&context=&page=1&page_size=50&order=pubdate&from_source=&from_spmid=333.337&platform=pc&highlight=1&single_column=0&keyword=乐正绫 原创&qv_id=ynSAaNRU2PCYdvqzakmyrRVgjteo2SJi&ad_resource=5654&source_tag=3&category_id=&search_type=video&tids=30')
@@ -42,22 +43,80 @@ function send() {
 onMounted(()=>{
 	// send()
 })
+let testList = ref([{"code":0,"message":"0"},{"code":0,"message":"1"},{"code":0,"message":"2"},{"code":0,"message":"3"},{"code":0,"message":"4"},])
 </script>
 
 <template>
-	<div>
-		<h1>{{ t('Ling1') }}</h1>
-		<h1>{{ t('Ling2') }}</h1>
-		<div>
-			尝试着使用了一些新的东西<br />
-			Vue3 + TypeScript + Sass + Element-plus + Vite + Pinia + Vue-router
+	<div class="video">
+		<div class="border video2lines">
+			<div class="border headerTitle">
+				绫曲推送
+			</div>
+			<ul>
+				<li v-for="item in testList" class="border">
+					<ling-song :key="item.message" :data="item" class="border"/>
+				</li>
+			</ul>
+		</div>
+		<div class="border video1line">
+			<div class="border headerTitle">
+				绫曲推送
+			</div>
+			<ul>
+				<li v-for="item in testList" class="border">
+				  <ling-song :data="item"/>
+				</li>
+			</ul>
 		</div>
 	</div>
 </template>
 
-<style scoped lang="scss">
-	div{
+<style lang="scss" scoped>
+	ul {
+		margin-block-start: 0em;
+		margin-inline-start: 0px;
+		padding-inline-start: 0px;
+	}
+	.border {
+		border-radius: 25px;
+		border: 1px #66ccff solid;
+		overflow: hidden;
+	}
+	.video{
+		margin: 3% 0 3% 16%;
+	}
+	.headerTitle{
+		height: 50px;
+		margin: 2vw;
+	}
+	.video2lines{
 		text-align: center;
-		margin-top: 20vh;
+		display: inline-block;
+		vertical-align:top;
+		width: 60%;
+		ul{
+			display: flex;
+			justify-content: space-evenly;
+			flex-wrap: wrap;
+
+			li{
+				width: 40%;
+				height: 22vh;
+				margin-bottom: 5%;
+			}
+		}
+	}
+	.video1line{
+		display: inline-block;
+		text-align: center;
+		vertical-align:top;
+		margin-left: 4%;
+		width: 30%;
+
+			li{
+				margin: 0 auto 10%;
+				width: 80%;
+				height: 22vh;
+			}
 	}
 </style>

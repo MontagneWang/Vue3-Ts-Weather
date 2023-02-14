@@ -15,6 +15,8 @@ declare module '@vue/runtime-core' {
     ElLink: typeof import('element-plus/es')['ElLink']
     ElOption: typeof import('element-plus/es')['ElOption']
     ElSelect: typeof import('element-plus/es')['ElSelect']
+    LingSong: typeof import('./src/components/LingSong.vue')['default']
+    LingSongs: typeof import('./src/components/LingSongs.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     WeatherAbbr: typeof import('./src/components/WeatherAbbr.vue')['default']

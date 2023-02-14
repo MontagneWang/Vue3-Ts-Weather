@@ -83,4 +83,5 @@ div.el-select.el-select--small.m-2{
 	display: flex;
 	align-items: center;
 }
+
 </style>
